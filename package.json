@@ -1,5 +1,15 @@
-"scripts": {
-  "dev": "svelte-kit dev",
-  "build": "svelte-kit build",
-  "preview": "svelte-kit preview"
+{
+  "name": "launchwebds-site-svelte",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "svelte-kit dev",
+    "build": "svelte-kit build",
+    "preview": "svelte-kit preview"
+  },
+  "devDependencies": {
+    "@sveltejs/kit": "latest",
+    "tailwindcss": "^4.0.0",
+    "postcss": "^8.4.0",
+    "autoprefixer": "^10.4.0"
+  }
 }
