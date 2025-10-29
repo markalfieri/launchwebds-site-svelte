@@ -8,76 +8,87 @@
     message: ''
   };
 
+  let isSubmitting = false;
+  let submitStatus = '';
+
   async function handleSubmit(event) {
     event.preventDefault();
+    isSubmitting = true;
+    submitStatus = '';
+
     try {
-      const response = await fetch('https://formspree.io/your-formspree-id', {
+      const response = await fetch('https://formspree.io/f/movnaabp', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
       });
+
       if (response.ok) {
-        alert('Message sent successfully!');
-        formData = { name: '', email: '', phone: '', company: '', projectType: '', message: '' };
+        submitStatus = 'success';
+        // Reset form
+        formData = {
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          projectType: '',
+          message: ''
+        };
+      } else {
+        submitStatus = 'error';
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('Error sending message. Please try again.');
+      submitStatus = 'error';
+    } finally {
+      isSubmitting = false;
     }
   }
 </script>
 
-<section id="contact" class="py-16">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-8">Let's discuss how we can help bring your vision to life.</h2>
+<section id="contact" class="contact">
+  <div class="container">
+    <h2>Get Started Today</h2>
+    <p>Let's discuss how we can help bring your vision to life.</p>
     
-    <form on:submit={handleSubmit} class="max-w-2xl mx-auto space-y-6">
-      <div>
+    <div class="contact-form">
+      <form on:submit={handleSubmit}>
         <input 
           type="text" 
+          name="name"
           bind:value={formData.name}
           placeholder="Your Name"
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
-      </div>
-      
-      <div>
+        
         <input 
           type="email" 
+          name="email"
           bind:value={formData.email}
           placeholder="Your Email"
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
-      </div>
-      
-      <div>
+        
         <input 
           type="tel" 
+          name="phone"
           bind:value={formData.phone}
           placeholder="Your Phone Number"
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
-      </div>
-      
-      <div>
+        
         <input 
           type="text" 
+          name="company"
           bind:value={formData.company}
           placeholder="Your Company"
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         />
-      </div>
-      
-      <div>
+        
         <select 
+          name="projectType"
           bind:value={formData.projectType}
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           required
         >
           <option value="">Project Type</option>
@@ -85,24 +96,29 @@
           <option value="ecommerce">E-commerce</option>
           <option value="mobile">Mobile App</option>
           <option value="seo">SEO</option>
+          <option value="other">Other</option>
         </select>
-      </div>
-      
-      <div>
+        
         <textarea 
+          name="message"
           bind:value={formData.message}
           placeholder="Tell us about your project"
-          class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
+          rows="5"
           required
         ></textarea>
-      </div>
-      
-      <button 
-        type="submit"
-        class="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors"
-      >
-        Send Message
-      </button>
-    </form>
+
+        {#if submitStatus === 'success'}
+          <p style="color: #00b894; text-align: center; margin-bottom: 1rem;">Thank you! Your message has been sent successfully.</p>
+        {/if}
+        
+        {#if submitStatus === 'error'}
+          <p style="color: #ff7675; text-align: center; margin-bottom: 1rem;">Oops! Something went wrong. Please try again.</p>
+        {/if}
+        
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Sending...' : 'Send Message'}
+        </button>
+      </form>
+    </div>
   </div>
 </section>

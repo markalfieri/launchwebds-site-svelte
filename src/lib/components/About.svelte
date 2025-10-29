@@ -1,30 +1,58 @@
-<section id="about" class="py-16 bg-gray-50">
-  <div class="container mx-auto px-4">
-    <h2 class="text-3xl font-bold text-center mb-8">Why Choose LaunchWebDS</h2>
-    <p class="text-lg text-center text-gray-600 mb-12 max-w-3xl mx-auto">
-      We're a team of passionate developers and designers committed to delivering exceptional digital experiences. 
-      With years of experience and a focus on innovation, we help businesses thrive online.
-    </p>
+<script>
+  import { onMount } from 'svelte';
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-      <div class="text-center p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <h3 class="text-4xl font-bold text-blue-600 mb-2">150+</h3>
-        <p class="text-gray-600">Projects Completed</p>
+  let aboutSection;
+
+  onMount(() => {
+    const observerOptions = {
+      threshold: 0.2,
+      rootMargin: '0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, observerOptions);
+
+    if (aboutSection) {
+      observer.observe(aboutSection);
+    }
+
+    return () => {
+      if (aboutSection) {
+        observer.unobserve(aboutSection);
+      }
+    };
+  });
+</script>
+
+<section id="about" class="about" bind:this={aboutSection}>
+  <div class="about-content">
+    <h2>Why Choose LaunchWeb DS?</h2>
+    <p style="margin-bottom: 2rem;">
+      We're a team of passionate developers and designers committed to delivering exceptional digital experiences. With years of experience and a focus on innovation, we help businesses thrive online.
+    </p>
+    
+    <div class="stats">
+      <div class="stat">
+        <h3>150+</h3>
+        <p>Projects Completed</p>
       </div>
-      <div class="text-center p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <h3 class="text-4xl font-bold text-blue-600 mb-2">7+</h3>
-        <p class="text-gray-600">Years Experience</p>
+      <div class="stat">
+        <h3>7+</h3>
+        <p>Years Experience</p>
       </div>
-      <div class="text-center p-6 bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-        <h3 class="text-4xl font-bold text-blue-600 mb-2">100%</h3>
-        <p class="text-gray-600">Client Satisfaction</p>
+      <div class="stat">
+        <h3>100%</h3>
+        <p>Client Satisfaction</p>
       </div>
     </div>
-
-    <p class="text-lg text-center text-gray-600 max-w-3xl mx-auto">
-      We care about your business, and are here to help launch it. We have launched several businesses with our website 
-      and SEO services, and yours can be next! We offer ongoing support for the site, as well as maintenance plans 
-      specialized to your business and individual needs.
+    
+    <p style="margin-top: 3rem; background: rgba(0,0,0,0.3); padding: 2rem; border-radius: 12px; border: 1px solid rgba(116,185,255,0.2);">
+      We care about your business, and are here to help <em style="color: #74b9ff; font-weight: bold;">launch</em> it. We have launched several businesses with our website and SEO services, and yours can be next! We offer ongoing support for the site, as well as maintenance plans specialized to your business and individual needs.
     </p>
   </div>
 </section>

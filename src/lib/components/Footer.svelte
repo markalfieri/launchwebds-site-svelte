@@ -5,6 +5,7 @@
         <h3>LaunchWebDS</h3>
         <p>Building exceptional digital experiences.</p>
       </div>
+
       <div class="footer-section">
         <h4>Services</h4>
         <ul>
@@ -14,14 +15,23 @@
           <li>SEO</li>
         </ul>
       </div>
+
       <div class="footer-section">
         <h4>Contact</h4>
         <p>Email: launchwebds@gmail.com</p>
         <p>Phone: Schedule call today using above form.</p>
       </div>
+
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <div class="flex space-x-4">
+          <!-- social icons if needed -->
+        </div>
+      </div>
     </div>
+
     <div class="footer-bottom">
-      <p>&copy; 2025 LaunchWebDS. All rights reserved.</p>
+      <p>© 2025 LaunchWebDS. All rights reserved.</p>
     </div>
   </div>
 </footer>
